@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.sensor.RomiGyro;
 
 public class RomiDrivetrain extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
@@ -25,6 +26,9 @@ public class RomiDrivetrain extends SubsystemBase {
 
   // Set up the differential drive controller
   private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+
+ //makes an object of RomiGyro class
+  private final RomiGyro m_RomiGyro = new RomiGyro();
 
   /** Creates a new RomiDrivetrain. */
   public RomiDrivetrain() {
@@ -46,12 +50,25 @@ public class RomiDrivetrain extends SubsystemBase {
     m_rightEncoder.reset();
   }
 
+  //returns the getAngleZ from the m_RomiGyro object
+  public double getZAngle () {
+    return m_RomiGyro.getAngleZ();
+  }
+   //reset gyroscope
+  public void Reset () {
+    m_RomiGyro.reset();
+  }
+
   public double getLeftDistanceInch() {
     return m_leftEncoder.getDistance();
   }
 
   public double getRightDistanceInch() {
     return m_rightEncoder.getDistance();
+  }
+//finds the average of the distance that the left and right encoders measure
+  public double getAverageDistanceInch() {
+    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
   }
 
   @Override
