@@ -53,6 +53,6 @@ public class Turn90Degrees extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (angle <= m_db.getZAngle());
+    return false;
   }
 }
